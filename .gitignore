@@ -1,0 +1,13 @@
+# Dados originais (grandes). Nunca alterar os arquivos em dados/original/.
+dados/original/CAGEDMOV*.txt
+dados/original/CAGEDMOV*.7z
+
+# Python / Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Base limpa (~100 MB, acima do limite do GitHub): regenerar com scripts/limpeza.py
+dados/tratados/*.parquet

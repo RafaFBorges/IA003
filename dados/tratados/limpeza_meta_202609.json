@@ -1,0 +1,42 @@
+{
+  "mes": "202609",
+  "gerado_em": "2026-11-14T12:09:39",
+  "arquivo_original": "CAGEDMOV202609.txt",
+  "sha256_original": "9a8b6bdb17e0097ae3d3e7cc8e9460f75888a5f58cb05d27d74f7728d9b3b567",
+  "linhas_raw": 4307569,
+  "linhas_clean": 4250945,
+  "pct_mantido": 98.6855,
+  "concordancia_salario_ministerio_pct": 100.0,
+  "piso_detectado": 1621.0,
+  "medianas_idade_por_categoria": {
+    "101": 31.0,
+    "102": 35.0,
+    "103": 18.0,
+    "105": 33.0,
+    "106": 29.0,
+    "111": 31.0
+  },
+  "idade_imputada_por_categoria": {
+    "101": 4453,
+    "103": 606,
+    "106": 113,
+    "111": 57,
+    "105": 53,
+    "102": 3
+  },
+  "mediana_geral_idade": 31.0,
+  "parametros": {
+    "UNID_EXCLUIDAS": [
+      6,
+      7,
+      99
+    ],
+    "K_HORA_MENSAL": 0.2,
+    "V_REL_MAX": 2.0,
+    "K_ATIPICO": 100.0,
+    "MIN_REF": 30,
+    "MIN_OBS_IDADE": 30,
+    "FRACAO_PISO_REF": 0.5,
+    "SEMANAS_POR_MES": 5.0
+  }
+}
