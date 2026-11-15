@@ -1,0 +1,11 @@
+regra,acao,linhas_afetadas,pct_do_raw,linhas_restantes
+Base original (raw),-,0,0.0,4307569
+R1 unidade de pagamento Tarefa/Variável/Não identificado,excluídas,47674,1.1067,4259895
+R2 horas contratuais = 0,excluídas,0,0.0,4259895
+R3 idade ausente: imputada pela mediana da mesma categoria de trabalhador,"imputadas (cat 101: 31, cat 102: 35, cat 103: 18, cat 105: 33, cat 106: 29, cat 111: 31)",5285,0.1227,4259895
+R4 salário ou valor fixo <= 0,excluídas,8808,0.2045,4251087
+Conferência: salario_mensal calculado x `salário` do Ministério,100.0000% das linhas concordam,0,0.0,4251087
+R5 Hora com valor/hora >= 20% do salário mensal típico (digitado como mensal),corrigidas (salario_mensal = valor digitado),1806,0.0419,4251087
+R5b Hora com valor/hora > 2x o salário mensal típico (não se encaixa nem como mensal),excluídas,31,0.0007,4251056
+R6 salário mensal > 100x a mediana da ocupação,excluídas,111,0.0026,4250945
+Info: linhas sem ocupação de referência (R5/R6 não se aplicam),mantidas,7,0.0002,4250945
