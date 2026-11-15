@@ -1,0 +1,24 @@
+{
+  "gerado_em": "2026-11-15T16:27:06",
+  "populacao_N": 4250945,
+  "arquivo_populacao": "app/dados/populacao.parquet",
+  "sha256_populacao": "c77c2c3e8f8136b945ddb547eec6dfd916bde8ce694e10605cdd74e4944dab6e",
+  "confianca": 0.95,
+  "z": 1.959964,
+  "margem_erro": 0.02,
+  "p": 0.5,
+  "n_formula_sem_arredondar": 2400.9118,
+  "n": 2401,
+  "correcao_populacao_finita_aplicada": false,
+  "n_se_corrigisse_populacao_finita": 2400,
+  "fracao_amostral_pct": 0.056482,
+  "metodo": "AAS sem reposição: numpy.random.default_rng(semente).choice(N, n, replace=False)",
+  "calculadora_conferencia": "calculadora de tamanho de amostra da USP/Bauru (conferir manualmente)",
+  "semente": 20260929,
+  "numpy": "2.2.6",
+  "justificativas": {
+    "confianca": "95% é o padrão em pesquisas; equilibra segurança e tamanho da amostra.",
+    "margem_erro": "2 pontos percentuais: precisão suficiente para comparar proporções com a população.",
+    "p": "0,5 maximiza p(1-p), então garante a margem de erro para qualquer proporção que se queira estimar."
+  }
+}

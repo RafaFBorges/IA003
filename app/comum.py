@@ -11,10 +11,12 @@ DIR_DADOS = Path(__file__).resolve().parent / "dados"
 FONTE_URL = "ftp://ftp.mtps.gov.br/pdet/microdados/NOVO%20CAGED/2026/202609/CAGEDMOV202609.7z"
 FONTE_PASTA = "ftp://ftp.mtps.gov.br/pdet/microdados/NOVO%20CAGED"
 MES_ROTULO = "setembro de 2026"
+REPO_URL = "https://github.com/RafaFBorges/IA003"
 
 # Cor única (matiz azul) para magnitudes; o cinza serve de apoio (grade, referência)
 COR = "#2a78d6"
 COR_DESTAQUE = "#eb6834"   # reservada para marcar uma referência (ex.: média) sobre o azul
+COR_POP = "#8c8b87"        # cinza neutro: a população como referência nas comparações com a amostra (a amostra é o azul)
 
 
 @st.cache_resource(show_spinner="Carregando a população (4,25 milhões de movimentações)…")

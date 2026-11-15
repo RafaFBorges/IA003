@@ -8,8 +8,7 @@ import streamlit as st
 from plotly.subplots import make_subplots
 from scipy import stats
 
-from comum import (COR, COR_DESTAQUE, FONTE_PASTA, FONTE_URL, MES_ROTULO, brl, carregar_log, carregar_meta,
-                   estilo_figura, n_br, pct)
+from comum import COR, COR_DESTAQUE, brl, carregar_meta, estilo_figura, n_br, pct
 
 # variável qualitativa -> (coluna, rótulo, ordem natural?)
 QUALITATIVAS = {
@@ -46,7 +45,7 @@ def mapa_uf_regiao(_df) -> dict:
     return _df.drop_duplicates("uf").set_index("uf")["regiao"].astype(str).to_dict()
 
 
-def _medidas_resumo(x: np.ndarray) -> dict:
+def medidas_resumo(x: np.ndarray) -> dict:
     x = x.astype("float64")
     q1, med, q3 = np.quantile(x, [0.25, 0.5, 0.75])
     return dict(n=len(x), media=x.mean(), dp=x.std(ddof=1), minimo=x.min(), q1=q1, mediana=med, q3=q3,
@@ -150,48 +149,6 @@ def _linhas_ref(media, mediana, fmt, tr=lambda v: v):
 # ----------------------------------------------------------------------------------------------
 # seções da aba
 # ----------------------------------------------------------------------------------------------
-def secao_definicao(meta: dict):
-    st.subheader("Como a população foi definida")
-    n_clean, n_raw = meta["linhas_clean"], meta["linhas_raw"]
-    c1, c2 = st.columns([3, 2])
-    with c1:
-        st.markdown(
-            f"""
-**Fonte:** Novo CAGED (Cadastro Geral de Empregados e Desempregados), do Ministério do Trabalho e Emprego.
-Microdados de movimentações (arquivo `CAGEDMOV202609`), competência **{MES_ROTULO}**.
-
-**Link do arquivo original:** [{FONTE_URL}]({FONTE_URL}) (pasta: [{FONTE_PASTA}]({FONTE_PASTA})).
-
-**Unidade de observação:** cada linha é **uma movimentação**, isto é, uma admissão ou um desligamento de
-emprego formal (CLT) declarado ao governo no prazo do mês. **Não é uma pessoa** e não há identificador de
-pessoa nem de empresa: quem foi contratado antes e continua empregado não aparece.
-
-**População (N):** **{n_br(n_clean)}** movimentações, depois da limpeza ({n_br(n_raw)} no arquivo original; {n_br(meta['pct_mantido'], 2)}% mantidos).
-
-**O que não está nela:** trabalho informal, servidores estatutários, e declarações feitas fora do prazo
-ou excluídas depois (arquivos `CAGEDFOR` e `CAGEDEXC`, que não usamos).
-"""
-        )
-    with c2:
-        with st.container(border=True):
-            st.markdown("**Como cada linha foi tratada**")
-            st.markdown(
-                "- Saem linhas sem escala mensal de salário (pagamento por tarefa, variável ou não identificado).\n"
-                "- Saem salários ou valores iguais ou menores que zero.\n"
-                "- Salário por hora que na verdade é salário mensal digitado no campo errado é **corrigido**.\n"
-                "- Saem salários absurdos para a ocupação (acima de 100 vezes a mediana dela). **Não há teto fixo de salário.**\n"
-                "- Idade ausente é preenchida pela mediana da mesma categoria de trabalhador."
-            )
-    with st.expander("Variáveis analisadas (tipo e significado)"):
-        st.dataframe(DICIONARIO, hide_index=True, width="stretch")
-    with st.expander("Log da limpeza (quantas linhas cada regra afetou)"):
-        log = carregar_log().rename(columns={"regra": "Regra", "acao": "Ação", "linhas_afetadas": "Linhas afetadas",
-                                             "pct_do_raw": "% do original", "linhas_restantes": "Linhas restantes"})
-        st.dataframe(log, hide_index=True, width="stretch")
-        st.caption(f"SHA-256 do arquivo original: `{meta['sha256_original']}`. O salário mensal que calculamos "
-                   f"coincide em {meta['concordancia_salario_ministerio_pct']:.0f}% das linhas com o salário informado pelo Ministério.")
-
-
 def secao_parametros(par: dict, piso: float):
     st.subheader("Parâmetros da população")
     with st.container(border=True):
@@ -289,7 +246,7 @@ def secao_quantitativas(d: pd.DataFrame):
 
     if escolha == "Idade":
         x = d["idade"].to_numpy()
-        m = _medidas_resumo(x)
+        m = medidas_resumo(x)
         cont = np.bincount(x, minlength=int(x.max()) + 1)
         idades = np.arange(len(cont))
         sel = cont > 0
@@ -306,7 +263,7 @@ def secao_quantitativas(d: pd.DataFrame):
 
     elif escolha == "Horas contratuais":
         x = d["horas"].to_numpy()
-        m = _medidas_resumo(x)
+        m = medidas_resumo(x)
         bordas = np.arange(0, 62, 2.0)
         cont, _ = np.histogram(x, bins=bordas)
         centros = (bordas[:-1] + bordas[1:]) / 2
@@ -328,7 +285,7 @@ def secao_quantitativas(d: pd.DataFrame):
 
     else:  # Salário mensal
         x = d["salario"].to_numpy(dtype="float64")
-        m = _medidas_resumo(x)
+        m = medidas_resumo(x)
         lx = np.log10(x)
         geo = float(10 ** lx.mean())
         lo = np.floor(lx.min() * 10) / 10
@@ -371,7 +328,7 @@ def render(df: pd.DataFrame):
     meta = carregar_meta()
     par = parametros_populacao(df)
     st.header("População")
-    secao_definicao(meta)
+    st.caption("Como a população foi definida, a limpeza e o dicionário de variáveis estão na aba **Informações extras**.")
     secao_parametros(par, meta["piso_detectado"])
     st.divider()
     d, filtrado = filtros(df)

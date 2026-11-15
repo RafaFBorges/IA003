@@ -4,6 +4,8 @@ Rodar:  .venv/bin/streamlit run app/app.py
 """
 import streamlit as st
 
+import aba_amostra
+import aba_extras
 import aba_populacao
 from comum import MES_ROTULO, carregar_populacao
 
@@ -14,17 +16,18 @@ st.caption(f"Novo CAGED, Ministério do Trabalho e Emprego · competência {MES_
 
 df = carregar_populacao()
 
-tab_pop, tab_amo, tab_inf = st.tabs(["População", "Amostra", "Inferência"])
+tab_pop, tab_amo, tab_inf, tab_ext = st.tabs(["População", "Amostra", "Inferência", "Informações extras"])
 
 with tab_pop:
     aba_populacao.render(df)
 
 with tab_amo:
-    st.header("Amostra")
-    st.info("Em construção: aqui entram o cálculo do tamanho da amostra, o sorteio (AAS) e a análise descritiva "
-            "da amostra, comparada com a população.")
+    aba_amostra.render(df)
 
 with tab_inf:
     st.header("Inferência")
     st.info("Em construção: aqui entram as hipóteses (proporções e médias), intervalos de confiança, testes, "
             "condições, comparação com os parâmetros da população e limitações.")
+
+with tab_ext:
+    aba_extras.render()
