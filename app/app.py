@@ -6,6 +6,7 @@ import streamlit as st
 
 import aba_amostra
 import aba_extras
+import aba_inferencia
 import aba_populacao
 from comum import MES_ROTULO, carregar_populacao
 
@@ -25,9 +26,7 @@ with tab_amo:
     aba_amostra.render(df)
 
 with tab_inf:
-    st.header("Inferência")
-    st.info("Em construção: aqui entram as hipóteses (proporções e médias), intervalos de confiança, testes, "
-            "condições, comparação com os parâmetros da população e limitações.")
+    aba_inferencia.render(df)
 
 with tab_ext:
-    aba_extras.render()
+    aba_extras.render(df)
