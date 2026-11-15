@@ -1,6 +1,8 @@
 streamlit==1.65.0
 plotly==7.1.0
 pandas==2.3.3
-numpy==2.2.6
-pyarrow==25.0.1
-scipy==1.15.3
+# Sem versão exata: o Streamlit Cloud usa Python 3.14, e versões antigas destes pacotes não têm
+# binário (wheel) para ele e tentariam compilar do código-fonte (lento e pode falhar).
+numpy>=2.2.6
+pyarrow>=25.0.1
+scipy>=1.15.3
