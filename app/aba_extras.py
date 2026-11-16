@@ -7,7 +7,7 @@ import inferencia as inf
 from aba_inferencia import fig_qq, md, tabela_condicoes
 from aba_populacao import DICIONARIO
 from amostragem import amostra_oficial, carregar_meta_amostra, tamanho_amostra
-from comum import FONTE_PASTA, FONTE_URL, MES_ROTULO, REPO_URL, brl, carregar_log, carregar_meta, n_br, pct
+from comum import FONTE_PAGINA, FONTE_PASTA, FONTE_URL, MES_ROTULO, REPO_URL, brl, carregar_log, carregar_meta, n_br, pct
 
 
 def secao_populacao(meta: dict):
@@ -20,7 +20,11 @@ def secao_populacao(meta: dict):
 **Fonte:** Novo CAGED (Cadastro Geral de Empregados e Desempregados), do Ministério do Trabalho e Emprego.
 Microdados de movimentações (arquivo `CAGEDMOV202609`), competência **{MES_ROTULO}**.
 
-**Link do arquivo original:** [{FONTE_URL}]({FONTE_URL}) (pasta: [{FONTE_PASTA}]({FONTE_PASTA})).
+**Página oficial dos microdados (https):** [{FONTE_PAGINA}]({FONTE_PAGINA}).
+
+**Link direto do arquivo original (FTP):** [{FONTE_URL}]({FONTE_URL}) (pasta: [{FONTE_PASTA}]({FONTE_PASTA})).
+Os navegadores atuais não abrem links FTP. Para baixar, copie o endereço no Explorador de Arquivos do Windows ou use um
+cliente FTP (como o FileZilla), sem senha (acesso anônimo).
 
 **Unidade de observação:** cada linha é **uma movimentação**, isto é, uma admissão ou um desligamento de
 emprego formal (CLT) declarado ao governo no prazo do mês. **Não é uma pessoa** e não há identificador de

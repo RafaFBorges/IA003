@@ -161,7 +161,7 @@ def secao_parametros(par: dict, piso: float):
         c[3].metric("Salário médio", brl(par["sal_media"], 2), help=f"Desvio-padrão: {brl(par['sal_dp'], 2)}")
         c[4].metric("Salário médio geométrico", brl(par["sal_geo"], 2),
                     help="Média dos logaritmos do salário, voltada para R$. É o parâmetro natural de um teste feito sobre o log do salário.")
-        st.caption(f"Salário mediano: {brl(par['sal_mediana'], 2)}. Piso salarial detectado nos dados: {brl(piso)}.")
+        st.caption(f"Salário mediano: {brl(par['sal_mediana'], 2)}. Piso salarial detectado nos dados: {brl(piso)}.".replace("$", "\\$"))
 
 
 def filtros(df: pd.DataFrame):

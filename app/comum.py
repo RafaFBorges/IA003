@@ -8,6 +8,7 @@ import streamlit as st
 DIR_DADOS = Path(__file__).resolve().parent / "dados"
 
 # Fonte e identificação da base (citadas na aba População e na entrega)
+FONTE_PAGINA = "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/microdados-rais-e-caged"
 FONTE_URL = "ftp://ftp.mtps.gov.br/pdet/microdados/NOVO%20CAGED/2026/202609/CAGEDMOV202609.7z"
 FONTE_PASTA = "ftp://ftp.mtps.gov.br/pdet/microdados/NOVO%20CAGED"
 MES_ROTULO = "setembro de 2026"
