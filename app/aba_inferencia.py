@@ -329,14 +329,6 @@ def secao_resumo(resultados: list):
     meds = [(x["h"], x["r"], x["pop"]) for x in resultados if x["h"]["tipo"] == "media"]
     c1.plotly_chart(fig_floresta(props, "Taxas (diferença A − B)", "Pontos percentuais"), width="stretch", key="flor_prop")
     c2.plotly_chart(fig_floresta(meds, "Salários (diferença A − B)", "% da média geométrica"), width="stretch", key="flor_med")
-    st.markdown(md(
-        "**Como ler.** O ponto azul é a diferença observada na amostra e a barra é o IC de 95%. O losango cinza é o valor verdadeiro na "
-        "população, que só conhecemos porque temos a base inteira (numa pesquisa real, ele é desconhecido). Quando a barra passa pelo zero, "
-        "não há evidência de diferença; quando o losango está dentro da barra, o IC acertou o parâmetro."))
-    certas = sum(x["rotulo"].startswith("Acerto") for x in resultados)
-    st.markdown(md(
-        f"**Balanço:** {certas} das {len(resultados)} decisões coincidem com o que vale na população. "
-        "Nas demais, a amostra, que na prática seria tudo o que se tem, não detectou uma diferença real (erro tipo II) ou apontou uma que não existe (falso positivo)."))
 
 
 def secao_variabilidade(sim: dict, resultados: list):
@@ -360,11 +352,6 @@ def secao_variabilidade(sim: dict, resultados: list):
             "ICs que contêm o valor da população": pct(rs["cobre"].mean(), 1),
         })
     st.dataframe(pd.DataFrame(linhas), hide_index=True, width="stretch")
-    st.markdown(md(
-        "- Quando a H1 é **verdadeira**, a coluna \"amostras que rejeitam H0\" é o **poder** do teste. Poder baixo explica por que uma diferença real pode passar "
-        "despercebida numa amostra.\n"
-        "- Quando a H1 é **falsa**, essa coluna mostra com que frequência uma amostra levaria a uma conclusão errada.\n"
-        "- Cerca de 95% dos intervalos de confiança devem conter o valor verdadeiro: é isso que significa \"95% de confiança\"."))
     ids = [x["h"]["id"] for x in resultados]
     nomes = {x["h"]["id"]: f"{x['h']['id']}. {x['h']['curto']}" for x in resultados}
     escolha = st.segmented_control("Hipótese", ids, default=ids[0], format_func=lambda i: nomes[i], key="inf_var")

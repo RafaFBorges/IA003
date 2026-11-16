@@ -113,6 +113,12 @@ def secao_inferencia(am, m: dict, n_pop: int):
         f"{pct(1 - 2 * inf.ALFA, 0)}. Usamos o IC bilateral de {pct(inf.CONFIANCA, 0)}, que é o padrão e mais conservador. Em casos limítrofes "
         "(valor-p entre 2,5% e 5%) o IC poderia incluir o zero e o teste rejeitar H0. Isso não acontece em nenhuma das cinco hipóteses."
     ))
+    st.markdown("**Como ler a simulação de variabilidade amostral (aba Inferência, Resumo)**")
+    st.markdown(md(
+        "- Quando a H1 é **verdadeira**, a coluna \"amostras que rejeitam H0\" é o **poder** do teste. Poder baixo explica por que uma diferença real pode passar "
+        "despercebida numa amostra.\n"
+        "- Quando a H1 é **falsa**, essa coluna mostra com que frequência uma amostra levaria a uma conclusão errada.\n"
+        "- Cerca de 95% dos intervalos de confiança devem conter o valor verdadeiro: é isso que significa \"95% de confiança\"."))
     with st.expander("Por que o salário é analisado em log10? (QQ plot do salário bruto e do log10)"):
         sal = am["salario"].to_numpy(dtype=float)
         c1, c2 = st.columns(2)
